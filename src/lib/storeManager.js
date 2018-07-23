@@ -3,13 +3,13 @@ import reduceReducers from 'reduce-reducers';
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 
-const appManager = {
+const storeManager = {
   modules: [],
   store: null,
-  register(module) {
-    this.modules.push(module);
+  register(name, reducers) {
+    this.modules.push({name, reducers});
   },
-  bootstrap() {
+  bootstrap({initialState} = {}) {
     const reducerMap = {};
 
     _.each(this.modules, (module) => {
@@ -24,11 +24,12 @@ const appManager = {
       _.mapValues(reducerMap, (reducers) => reduceReducers(...reducers))
     );
 
-    this.store = createStore(
-      rootReducer,
-      applyMiddleware(thunk),
+    this.store = initialState ? (
+      createStore(rootReducer, initialState, applyMiddleware(thunk))
+    ) : (
+      createStore(rootReducer, applyMiddleware(thunk))
     );
   }
 };
 
-export default appManager;
+export default storeManager;
