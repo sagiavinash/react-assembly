@@ -5,18 +5,13 @@ import thunk from 'redux-thunk';
 import storeManager from '../lib/storeManager';
 import Root from './Root/container';
 
-export default class App extends Component {
-  componentWillMount() {
-    this.setState({
-      store: storeManager.createStore({enhancer: applyMiddleware(thunk)})
-    });
-  }
-  render() {
-    console.log('this.state.store.getState()', this.state.store.getState());
-    return (
-      <Provider store={this.state.store}>
-        <Root />
-      </Provider>
-    );
-  }
+export default function App() {
+  const store = storeManager.createStore({enhancer: applyMiddleware(thunk)});
+  console.log('store.getState()', store.getState());
+
+  return (
+    <Provider store={store}>
+      <Root />
+    </Provider>
+  );
 }
