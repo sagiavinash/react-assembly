@@ -1,13 +1,25 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Root from '../components/Root';
-import UserDetailsContainer from './UserDetailsContainer';
 import CitiesContainer from './CitiesContainer';
 
-export default function RootContainer() {
-  return (
-    <Root>
-      <UserDetailsContainer />
-      <CitiesContainer />
-    </Root>
-  );
+export default class RootContainer extends Component {
+  state = {
+    UserDetailsContainer: null
+  };
+  componentDidMount() {
+    import('./UserDetailsContainer')
+      .then((module) => {
+        this.setState({UserDetailsContainer: module.default});
+      });
+  }
+  render() {
+    const {UserDetailsContainer} = this.state;
+
+    return UserDetailsContainer ? (
+      <Root>
+        <UserDetailsContainer />
+        <CitiesContainer />
+      </Root>
+    ) : null;
+  }
 }

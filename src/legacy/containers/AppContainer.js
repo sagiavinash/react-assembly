@@ -10,9 +10,10 @@ const store = createStore(
   applyMiddleware(thunk)
 );
 
-
-export default () => (
-  <Provider store={store}>
-    <Root />
-  </Provider>
-);
+export default function App() {
+  return (
+    <Provider store={store}>
+      <Root />
+    </Provider>
+  );
+}

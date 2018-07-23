@@ -1,27 +1,33 @@
-import _ from 'lodash';
-import {createStore} from 'redux';
-import reduceReducers from 'reduce-reducers';
-import {combineReducers} from 'redux';
+import {createStore, combineReducers} from 'redux';
+
+const reduceReducers = (reducers) => (state, action) => (
+  reducers.reduce((result, reducer) => (
+    reducer(result, action)
+  ), state)
+);
 
 const storeManager = {
   store: null,
   reducerMap: {},
   registerReducer(reducerMap) {
-    _.each(reducerMap, (reducer, name) => {
+    for (let name in reducerMap) {
       if (!this.reducerMap[name]) this.reducerMap[name] = [];
 
-      this.reducerMap[name].push(reducer);
-    });
+      this.reducerMap[name].push(reducerMap[name]);
+    }
   },
   createRootReducer() {
     return combineReducers(
-      _.mapValues(this.reducerMap, (reducers) => reduceReducers(...reducers))
+      Object.keys(this.reducerMap).reduce((result, key) => ({
+        ...result,
+        [key]: reduceReducers(this.reducerMap[key])
+      }), {})
     );
   },
   createStore({initialState, enhancer}) {
     this.store = createStore(
       this.createRootReducer(),
-      ..._.compact([initialState, enhancer]),
+      ...(initialState ? [initialState, enhancer] : [enhancer]),
     );
 
     return this.store;

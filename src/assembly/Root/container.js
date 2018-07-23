@@ -16,13 +16,12 @@ export default class RootContainer extends Component {
       });
   }
   render() {
-    const {userDetails, cities} = this.props;
     const {UserDetails} = this.state;
 
     return UserDetails ? (
       <Root>
-        <UserDetails userDetails={userDetails} />
-        <Cities cities={cities} />
+        <UserDetails />
+        <Cities />
       </Root>
     ) : null;
   }

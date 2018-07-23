@@ -12,6 +12,7 @@ export default class App extends Component {
     });
   }
   render() {
+    console.log('this.state.store.getState()', this.state.store.getState());
     return (
       <Provider store={this.state.store}>
         <Root />
@@ -19,7 +20,3 @@ export default class App extends Component {
     );
   }
 }
-
-
-// import('path/to/module')
-//   .then(storeManager.refreshStore)
