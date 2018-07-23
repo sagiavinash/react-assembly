@@ -1,15 +1,14 @@
 import _ from 'lodash';
 import reduceReducers from 'reduce-reducers';
-import {createStore, combineReducers, applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
+import {combineReducers} from 'redux';
 
 const storeManager = {
   modules: [],
-  store: null,
+  rootReducer: null,
   register(name, reducers) {
     this.modules.push({name, reducers});
   },
-  bootstrap({initialState} = {}) {
+  createRootReducer() {
     const reducerMap = {};
 
     _.each(this.modules, (module) => {
@@ -20,15 +19,11 @@ const storeManager = {
       });
     });
 
-    const rootReducer = combineReducers(
+    this.rootReducer = combineReducers(
       _.mapValues(reducerMap, (reducers) => reduceReducers(...reducers))
     );
 
-    this.store = initialState ? (
-      createStore(rootReducer, initialState, applyMiddleware(thunk))
-    ) : (
-      createStore(rootReducer, applyMiddleware(thunk))
-    );
+    return this.rootReducer;
   }
 };
 
