@@ -3,27 +3,18 @@ import reduceReducers from 'reduce-reducers';
 import {combineReducers} from 'redux';
 
 const storeManager = {
-  modules: [],
-  rootReducer: null,
-  register(name, reducers) {
-    this.modules.push({name, reducers});
+  reducerMap: {},
+  register(reducerMap) {
+    _.each(reducerMap, (reducer, name) => {
+      if (!this.reducerMap[name]) this.reducerMap[name] = [];
+
+      this.reducerMap[name].push(reducer);
+    });
   },
   createRootReducer() {
-    const reducerMap = {};
-
-    _.each(this.modules, (module) => {
-      _.each(module.reducers, (reducer, name) => {
-        if (!reducerMap[name]) reducerMap[name] = [];
-
-        reducerMap[name].push(reducer);
-      });
-    });
-
-    this.rootReducer = combineReducers(
-      _.mapValues(reducerMap, (reducers) => reduceReducers(...reducers))
+    return combineReducers(
+      _.mapValues(this.reducerMap, (reducers) => reduceReducers(...reducers))
     );
-
-    return this.rootReducer;
   }
 };
 

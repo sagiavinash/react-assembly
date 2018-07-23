@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import storeManager from '../lib/storeManager';
 import Root from './Root/container';
 
-export default class extends Component {
+export default class App extends Component {
   static childContextTypes = {
     storeManager: PropTypes.object
   };

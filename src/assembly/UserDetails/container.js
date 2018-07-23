@@ -4,7 +4,7 @@ import UserDetails from './component';
 import {getUserDetails} from './actions';
 import userDetailsReducer from './reducer';
 
-storeManager.register('UserDetails', {
+storeManager.register({
   userDetails: userDetailsReducer
 });
 

@@ -3,7 +3,7 @@ import storeManager from '../../lib/storeManager';
 import Cities from './component';
 import citiesReducer from './reducer';
 
-storeManager.register('Cities', {
+storeManager.register({
   cities:  citiesReducer
 });
 
