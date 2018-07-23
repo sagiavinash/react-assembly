@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Provider} from "react-redux";
 import appManager from '../lib/AppManager';
-import Root from './Root/Root';
+import Root from './Root/container';
 
 export default class extends Component {
   componentWillMount() {

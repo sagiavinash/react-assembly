@@ -1,11 +1,10 @@
 import _ from 'lodash';
 import reduceReducers from 'reduce-reducers';
-import {createStore, combineReducers} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
 
 const appManager = {
   modules: [],
-  actions: {},
-  services: {},
   store: null,
   register(module) {
     this.modules.push(module);
@@ -14,31 +13,21 @@ const appManager = {
     const reducerMap = {};
 
     _.each(this.modules, (module) => {
-      _.each(module.dataDependencies, (dep) => {
-        console.log('dep', dep);
-        if (!reducerMap[dep.name]) reducerMap[dep.name] = [];
+      _.each(module.reducers, (reducer, name) => {
+        if (!reducerMap[name]) reducerMap[name] = [];
 
-        reducerMap[dep.name].push(dep.value);
+        reducerMap[name].push(reducer);
       });
-
-      _.reduce(module.actionCreators, (config) => (
-        _.assign(this.actionCreators, config)
-      ), this.actionCreators);
-
-      _.reduce(module.services, (config) => (
-        _.assign(this.services, config)
-      ), this.services);
     });
-
-    console.log(reducerMap);
 
     const rootReducer = combineReducers(
       _.mapValues(reducerMap, (reducers) => reduceReducers(...reducers))
     );
 
-    console.log(rootReducer);
-
-    this.store = createStore(rootReducer);
+    this.store = createStore(
+      rootReducer,
+      applyMiddleware(thunk),
+    );
   }
 };
 

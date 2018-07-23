@@ -4,12 +4,9 @@ import citiesReducer from './reducer';
 
 appManager.register({
   name: 'Cities',
-  dataDependencies: [{
-    name: 'cities',
-    value: citiesReducer
-  }],
-  // actionCreators: [],
-  // services: []
+  reducers: {
+    cities:  citiesReducer
+  }
 });
 
 export default ({cities}) => (

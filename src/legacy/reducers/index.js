@@ -1,12 +1,6 @@
 import {combineReducers} from 'redux';
-
-function userDetailsReducer(state = {id: 1}, action) {
-  return state;
-}
-
-function citiesReducer(state = ['Hyderabad'], action) {
-  return state;
-}
+import userDetailsReducer from './userDetails';
+import citiesReducer from './cities';
 
 export default combineReducers({
   userDetails: userDetailsReducer,
