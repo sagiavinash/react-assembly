@@ -7,9 +7,6 @@ import storeManager from '../lib/storeManager';
 import Root from './Root/container';
 
 export default class extends Component {
-  state = {
-    store: null
-  };
   static childContextTypes = {
     storeManager: PropTypes.object
   };
@@ -19,7 +16,6 @@ export default class extends Component {
       storeManager.createRootReducer(),
       applyMiddleware(thunk)
     );
-
 
     this.setState({store});
 
