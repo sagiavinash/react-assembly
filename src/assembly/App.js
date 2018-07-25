@@ -1,16 +1,13 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Provider} from "react-redux";
 import {applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
-import storeManager from '../lib/storeManager';
+import storeManager from 'redux-store-manager';
 import Root from './Root/container';
 
 export default function App() {
-  const store = storeManager.createStore({enhancer: applyMiddleware(thunk)});
-  console.log('store.getState()', store.getState());
-
   return (
-    <Provider store={store}>
+    <Provider store={storeManager.createStore(applyMiddleware(thunk))}>
       <Root />
     </Provider>
   );

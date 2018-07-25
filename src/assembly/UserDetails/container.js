@@ -1,10 +1,10 @@
 import {connect} from 'react-redux';
-import storeManager from '../../lib/storeManager';
+import storeManager from 'redux-store-manager';
 import UserDetails from './component';
 import {getUserDetails} from './actions';
 import userDetailsReducer from './reducer';
 
-storeManager.registerReducer({
+storeManager.registerReducers({
   userDetails: userDetailsReducer
 });
 

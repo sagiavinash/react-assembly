@@ -1,9 +1,9 @@
 import {connect} from 'react-redux';
-import storeManager from '../../lib/storeManager';
+import storeManager from 'redux-store-manager';
 import Cities from './component';
 import citiesReducer from './reducer';
 
-storeManager.registerReducer({
+storeManager.registerReducers({
   cities:  citiesReducer
 });
 

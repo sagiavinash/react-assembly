@@ -10,6 +10,7 @@
     "react-scripts": "1.1.4",
     "reduce-reducers": "^0.4.3",
     "redux": "^4.0.0",
+    "redux-store-manager": "0.1.4",
     "redux-thunk": "^2.3.0",
     "webpack-bundle-analyzer": "^2.13.1"
   },

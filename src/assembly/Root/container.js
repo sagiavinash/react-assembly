@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import storeManager from '../../lib/storeManager';
+import storeManager from 'redux-store-manager';
 import Root from './component';
 import Cities from '../Cities/container';
 
