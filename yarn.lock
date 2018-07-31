@@ -5748,9 +5748,9 @@ reduce-reducers@^0.4.3:
   version "0.4.3"
   resolved "https://registry.npmjs.org/reduce-reducers/-/reduce-reducers-0.4.3.tgz#8e052618801cd8fc2714b4915adaa8937eb6d66c"
 
-redux-store-manager@0.1.4:
-  version "0.1.4"
-  resolved "https://registry.npmjs.org/redux-store-manager/-/redux-store-manager-0.1.4.tgz#6b2e68ad02d2f264ed67d37241068e684ba9967e"
+redux-store-manager@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.npmjs.org/redux-store-manager/-/redux-store-manager-0.1.9.tgz#5603feb5a754c54b7eef2b0bd83b59c2081e326a"
   dependencies:
     redux "^2.2.1"
 
